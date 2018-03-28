@@ -1,23 +1,47 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/wangyoucao577/golang_test/my_gopl_test/ch2_popcount"
-	"os"
-	"strconv"
+	"time"
 )
 
+var loopCount = flag.Int("c", 1, "loop count")
+var value = flag.Uint64("v", 0x1234567890ABCDEF, "test value")
+
 func main() {
-	for _, arg := range os.Args[1:] {
-		t, err := strconv.ParseUint(arg, 0, 64)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "ch2_popcount_test: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("PopCountByLookupTable : %d\n", popcount.PopCountByLookupTable(t))
-		fmt.Printf("PopCountByLooping     : %d\n", popcount.PopCountByLooping(t))
-		fmt.Printf("PopCountByShifting    : %d\n", popcount.PopCountByShifting(t))
-		fmt.Printf("PopCountByClearing    : %d\n", popcount.PopCountByClearing(t))
+	flag.Parse()
+	t := *value
+
+	var p1, p2, p3, p4 int
+
+	start := time.Now()
+	for i := 0; i < *loopCount; i++ {
+		p1 = popcount.PopCountByLookupTable(t)
 	}
+	end := time.Now()
+	fmt.Printf("PopCountByLookupTable : %d cost %d ms (loop count %d)\n", p1, end.Sub(start)/time.Millisecond, *loopCount)
+
+	start = time.Now()
+	for i := 0; i < *loopCount; i++ {
+		p2 = popcount.PopCountByLookupTable(t)
+	}
+	end = time.Now()
+	fmt.Printf("PopCountByLooping     : %d cost %d ms (loop count %d)\n", p2, end.Sub(start)/time.Millisecond, *loopCount)
+
+	start = time.Now()
+	for i := 0; i < *loopCount; i++ {
+		p3 = popcount.PopCountByShifting(t)
+	}
+	end = time.Now()
+	fmt.Printf("PopCountByShifting    : %d cost %d ms (loop count %d)\n", p3, end.Sub(start)/time.Millisecond, *loopCount)
+
+	start = time.Now()
+	for i := 0; i < *loopCount; i++ {
+		p4 = popcount.PopCountByClearing(t)
+	}
+	end = time.Now()
+	fmt.Printf("PopCountByClearing    : %d cost %d ms (loop count %d)\n", p4, end.Sub(start)/time.Millisecond, *loopCount)
 
 }

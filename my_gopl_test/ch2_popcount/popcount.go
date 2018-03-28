@@ -44,7 +44,17 @@ func PopCount3(x uint64) int {
 		if (x & 1) == 1 {
 			count += 1
 		}
-        x >>= 1
+		x >>= 1
+	}
+	return count
+}
+
+// clear rightmost non-zero bit
+func PopCount4(x uint64) int {
+	var count int
+	for x != 0 {
+		x = x & (x - 1) //clear rightmost non-zero bit
+		count++
 	}
 	return count
 }

@@ -5,7 +5,7 @@ import "fmt"
 
 type Celsius float64    //摄氏度
 type Fahrenheit float64 //华氏度
-
+type Kelvin float64     //开尔文
 const (
 	AbsoluteZeroC Celsius = -273.15 //绝对零度
 	FreezingC     Celsius = 0       //冰点温度
@@ -18,5 +18,9 @@ func (c Celsius) String() string {
 }
 
 func (f Fahrenheit) String() string {
-	return fmt.Sprintf("%gC", f)
+	return fmt.Sprintf("%gF", f)
+}
+
+func (k Kelvin) String() string {
+	return fmt.Sprintf("%gK", k)
 }

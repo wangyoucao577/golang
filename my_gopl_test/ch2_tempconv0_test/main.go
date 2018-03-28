@@ -19,12 +19,18 @@ func main() {
 	//fmt.Println(c == f)    // compile error: type mismatch
 	fmt.Println(c == tempconv0.Celsius(f)) // "true"
 
-	c2 := tempconv0.FToC(212.0)
+	f2 := tempconv0.Fahrenheit(212.0)
+	fmt.Println(f2) // "212.0F"
+
+	c2 := tempconv0.FToC(f2)
 	fmt.Println(c2.String()) // "100C"
 	fmt.Printf("%v\n", c2)   // "100C"; no need to call String() explicity
 	fmt.Printf("%s\n", c2)   // "100C"
 	fmt.Println(c2)          // "100C"
 	fmt.Printf("%g\n", c2)   // "100"; does not call String()
 	fmt.Println(float64(c2)) // "100"; does not call String()
+
+	k2 := tempconv0.CToK(c2)
+	fmt.Println(k2) // "373.15K"
 
 }

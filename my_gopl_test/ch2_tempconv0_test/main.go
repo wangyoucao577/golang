@@ -11,4 +11,11 @@ func main() {
 	boilingF := tempconv0.CToF(tempconv0.BoilingC)
 	fmt.Printf("%g\n", boilingF-tempconv0.CToF(tempconv0.FreezingC)) // "180"
 	//fmt.Printf("%g\n", boilingF-FreezingC)       // compile error: type mismatch
+
+	var c tempconv0.Celsius
+	var f tempconv0.Fahrenheit
+	fmt.Println(c == 0) // "true"
+	fmt.Println(f >= 0) // "true"
+	//fmt.Println(c == f)    // compile error: type mismatch
+	fmt.Println(c == tempconv0.Celsius(f)) // "true"
 }

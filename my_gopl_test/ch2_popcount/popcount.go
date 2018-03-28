@@ -15,6 +15,7 @@ var pc [256]byte = func() (pc [256]byte) {
 // }
 
 // PopCount returns the population count (number of set bits) of x.
+// look-up table
 func PopCount(x uint64) int {
 	return int(pc[byte(x>>(0*8))] +
 		pc[byte(x>>(1*8))] +
@@ -27,10 +28,23 @@ func PopCount(x uint64) int {
 	)
 }
 
+// loop
 func PopCount2(x uint64) int {
 	var count int
 	for i := uint(0); i < 8; i++ {
 		count += int(pc[byte(x>>(i*8))])
+	}
+	return count
+}
+
+// offset
+func PopCount3(x uint64) int {
+	var count int
+	for i := uint(0); i < 64; i++ {
+		if (x & 1) == 1 {
+			count += 1
+		}
+        x >>= 1
 	}
 	return count
 }

@@ -14,7 +14,9 @@ func main() {
 			fmt.Fprintf(os.Stderr, "ch2_popcount_test: %v\n", err)
 			os.Exit(1)
 		}
-		fmt.Println(popcount.PopCount(t))
+		fmt.Printf("PopCount: %d\n", popcount.PopCount(t))
+		fmt.Printf("PopCount2: %d\n", popcount.PopCount2(t))
+
 	}
 
 }

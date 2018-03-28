@@ -14,10 +14,10 @@ func main() {
 			fmt.Fprintf(os.Stderr, "ch2_popcount_test: %v\n", err)
 			os.Exit(1)
 		}
-		fmt.Printf("PopCount (look-up table): %d\n", popcount.PopCount(t))
-		fmt.Printf("PopCount2(loop)         : %d\n", popcount.PopCount2(t))
-		fmt.Printf("PopCount3(offset)       : %d\n", popcount.PopCount3(t))
-		fmt.Printf("PopCount4(Clearing)     : %d\n", popcount.PopCount4(t))
+		fmt.Printf("PopCountByLookupTable : %d\n", popcount.PopCountByLookupTable(t))
+		fmt.Printf("PopCountByLooping     : %d\n", popcount.PopCountByLooping(t))
+		fmt.Printf("PopCountByShifting    : %d\n", popcount.PopCountByShifting(t))
+		fmt.Printf("PopCountByClearing    : %d\n", popcount.PopCountByClearing(t))
 	}
 
 }

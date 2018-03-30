@@ -2,6 +2,7 @@
 package main
 
 import (
+	//"fmt"
 	"image"
 	"image/color"
 	"image/png"
@@ -10,6 +11,22 @@ import (
 )
 
 func main() {
+
+	/*
+		// complex test
+		var c1 complex64 = complex(1, 1)
+		var c2 complex64 = complex(2, 3)
+		fmt.Println(c1)    // 1+1i
+		fmt.Println(c2)    // 2+3i
+		fmt.Println(real(c2))  //2
+		fmt.Println(imag(c2))  //3
+		fmt.Println(c1 + c2)   //3+4i
+		fmt.Println(c1 - c2)   //-1-2i
+		fmt.Println(c1 * c2)
+		fmt.Println(c1 / c2)
+		return
+	*/
+
 	const (
 		xmin, ymin, xmax, ymax = -2, -2, +2, +2
 		width, height          = 1024, 1024

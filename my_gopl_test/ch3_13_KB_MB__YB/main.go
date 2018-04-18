@@ -26,5 +26,7 @@ func main() {
 	fmt.Printf("1EB = %d bits\n", uint64(EB))
 	//fmt.Printf("1ZB = %d bits\n", ZB)    // overflows uint64
 	//fmt.Printf("1YB = %d bits\n", YB)    // overflows uint64
+	fmt.Printf("1ZB / 1TB = %d \n", ZB/TB)
+	fmt.Printf("1YB / 1TB = %d \n", YB/TB)
 
 }

@@ -28,4 +28,21 @@ func main() {
 
 	rotate(a[:], 2)
 	fmt.Println(a)
+
+	var s1 []int //len(s1)=0, cap(s1)=0, s1 == nil? true
+	fmt.Printf("len(s1)=%d, cap(s1)=%d, s1 == nil? %t\n", len(s1), cap(s1), s1 == nil)
+	s1 = nil //len(s1)=0, cap(s1)=0, s1 == nil? true
+	fmt.Printf("len(s1)=%d, cap(s1)=%d, s1 == nil? %t\n", len(s1), cap(s1), s1 == nil)
+	s1 = []int(nil) //len(s1)=0, cap(s1)=0, s1 == nil? true
+	fmt.Printf("len(s1)=%d, cap(s1)=%d, s1 == nil? %t\n", len(s1), cap(s1), s1 == nil)
+	s1 = []int{} //len(s1)=0, cap(s1)=0, s1 == nil? false
+	fmt.Printf("len(s1)=%d, cap(s1)=%d, s1 == nil? %t\n", len(s1), cap(s1), s1 == nil)
+
+	s2 := make([]int, 3)
+	fmt.Printf("s2 := make([]int, 3), len(s2)=%d, cap(s2)=%d, s2 == nil? %t\n", len(s2), cap(s2), s2 == nil)
+	s3 := make([]int, 3, 6)
+	fmt.Printf("s3 := make([]int, 3, 6), len(s3)=%d, cap(s3)=%d, s3 == nil? %t\n", len(s3), cap(s3), s3 == nil)
+	s4 := make([]int, 6)[:3]
+	fmt.Printf("s4 := make([]int, 6)[:3], len(s4)=%d, cap(s4)=%d, s4 == nil? %t\n", len(s4), cap(s4), s4 == nil)
+
 }

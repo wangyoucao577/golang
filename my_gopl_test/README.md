@@ -21,6 +21,55 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
     - package main定义了独立的可执行程序
     - func main则定义了程序的入口函数
 
+### Go的代码组织 
+(摘自[How to Write Go Code](https://golang.org/doc/code.html)的Code origanization章节原文, 非常好的入门文档, 强烈推荐!!)  
+- Overview
+    - Go programmers typically keep all their Go code in a single workspace.
+    - A workspace contains many version control repositories (managed by Git, for example).
+    - Each repository contains one or more packages.
+    - Each package consists of one or more Go source files in a single directory.
+    - The path to a package's directory determines its import path.
+    - Note that this differs from other programming environments in which every project has a separate workspace and workspaces are closely tied to version control repositories.
+
+- Workspaces
+    - A workspace is a directory hierarchy with three directories at its root:
+        - src contains Go source files,
+        - pkg contains package objects, and
+        - bin contains executable commands.
+    - The go tool builds source packages and installs the resulting binaries to the pkg and bin directories.
+
+    - The src subdirectory typically contains multiple version control repositories (such as for Git or Mercurial) that track the development of one or more source packages.
+
+    - To give you an idea of how a workspace looks in practice, here's an example:
+```
+bin/    
+    hello                          # command executable    
+    outyet                         # command executable    
+pkg/    
+    linux_amd64/    
+        github.com/golang/example/    
+            stringutil.a           # package object    
+src/    
+    github.com/golang/example/    
+        .git/                      # Git repository     metadata    
+	hello/    
+	    hello.go               # command source    
+	outyet/    
+	    main.go                # command source    
+	    main_test.go           # test source    
+	stringutil/    
+	    reverse.go             # package source    
+	    reverse_test.go        # test source    
+    golang.org/x/image/    
+        .git/                      # Git repository     metadata    
+	bmp/    
+	    reader.go              # package source    
+	    writer.go              # package source    
+    ... (many more repositories and packages omitted) ...   
+```    
+
+
+
 
 ### Go的常用工具命令    
 Go提供了一系列的工具命令，都可以通过一个单独的go命令调用    

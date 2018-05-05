@@ -1,9 +1,9 @@
 # [Go] golang_test
-My test codes for learning go language. 
+我的`Golang`学习笔记及示例实验代码. 
 
 ### my_gopl_test  
-Sample and exercise codes from learning GOPL《The Go Programming Language》. 
-- [my_gopl_test](./my_gopl_test/README.md)
+Sample/exercise codes and also my learning notes from learning GOPL《The Go Programming Language》. 
+- [我的Golang学习笔记及GOPL示例实验代码](./my_gopl_test/README.md)
 
 ### hello, stringutil
 Simplest example from official trail [How to Write Go Code](https://golang.org/doc/code.html). 

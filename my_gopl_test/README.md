@@ -9,25 +9,30 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
 
 ## 学习笔记
 ### 基本点
-- Go是一门编译型语言，且仅支持静态编译链接（不支持动态链接）
-- Go原生支持unicode
-- Go的编译没有警告, 要么pass, 要么error
-    - Go语言不允许unused local variable, 否则会报编译错误
-- Go的代码通过 package 组织(类似于其他语言的modules 或 libraries)，一个package由位于单个目录下的一个或多个.go生成，目录的名字即为package的名字。
+- `Go`是一门编译型语言，且仅支持静态编译链接（不支持动态链接）
+- `Go`原生支持`unicode`
+- `Go`的编译没有警告, 要么pass, 要么error
+    - `Go`语言不允许 unused local variable, 否则会报编译错误
+    - `import`但未被引用的包, 会导致编译错误
+- `Go`的代码通过`package`组织(类似于其他语言的modules 或 libraries)
+    - 一个`package`由位于单个目录下的一个或多个.go生成
+    - 通常目录的名字即为`package`的名字
+    - 而`package xxx`中的`xxx`为命名空间(引用名)
+    - 按照惯例是导入路径的最后一段与命名空间一致
 - 每个源文件都应
-    - 首先以 package xxx 开始，以定义此文件属于哪个package.
-    - 然后import xxx 导入所需要链接的 package (import必须在package之后)
-    - 再然后才是此文件中的 代码实现
-- package main，以及 func main
-    - package main定义了独立的可执行程序
-    - func main则定义了程序的入口函数
-- 注释： "//"
-- Go中 函数和包级别(package level entities)的变量/函数可以任意顺序声明, 并不影响其调用
+    - 首先以 `package xxx` 开始，以定义此文件属于哪个package.
+    - 然后`import xxx` 导入所需要链接的`package`(`import`必须在`package`之后)
+    - 再然后才是此文件中的代码实现
+- `package main`，以及 `func main`
+    - `package main`定义了独立的可执行程序
+    - `func main`则定义了程序的入口函数
+- 注释： `//`
+- `Go`中 函数和包级别(package level entities)的变量/函数可以任意顺序声明, 并不影响其调用
 - 变量的几种声明/初始化形式(声明即初始化)
-    - var s1, s2 string (声明2个string变量, 隐式初始化为""字符串. 若类型为int, 则隐式初始化为0)
-	- s1,s2 := "","" (声明2个变量s1 s2, 以空字符串""初始化, 于是即推导出其为string类型. 此种方式术语叫做 short variable declaration)
-	- var s1 = "" (冗余的 var, 使用的较少)
-	- var s1 string = "" (冗余的var 和string, 用的也比较少)
+    - `var s1, s2 string` (声明2个`string`变量, 隐式初始化为`""`字符串. 若类型为`int`, 则隐式初始化为`0`)
+	- `s1,s2 := "",""` (声明2个变量s1 s2, 以空字符串`""`初始化, 于是即推导出其为`string`类型. 此种方式术语叫做 short variable declaration)
+	- `var s1 = ""` (冗余的 `var`, 使用的较少)
+	- `var s1 string = ""` (冗余的`var` 和`string`, 用的也比较少)
 - Go中的循环语句仅有for一种, 其有几种形式
     - `for initialization, condition, post { `
         - 此种形式下, initialization/condition/post 均可以省略, 左大括号"{" 必须在 post 的同一行
@@ -147,7 +152,11 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
             - 不从函数中逃逸的变量, 由编译器自动决定在栈上分配还是堆上分配
 - 命令行参数处理
     - `Go`中一般通过`flag`包, 类似于`python`中的`argparse`
-
+- 包的初始化
+    - 依次初始化(会按照变量的初始化依赖顺序)
+    - 包中复杂变量的初始化, 可以通过特殊的`init()`函数来进行(进入`main()`之前自动被调用)
+    - 每个包只会被初始化一次, 不会重复初始化
+    - `package main`最后被初始化
 
 
 ## Reference Links 

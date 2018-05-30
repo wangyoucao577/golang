@@ -16,6 +16,10 @@ func (c countingWriter) Write(p []byte) (int, error) {
 	return c.writer.Write(p)
 }
 
+func (c countingWriter) String() string {
+	return fmt.Sprintf("%d", *c.counter)
+}
+
 func CountingWriter(w io.Writer) (io.Writer, *int64) {
 	var c int64
 	cw := countingWriter{&c, w}
@@ -25,6 +29,6 @@ func CountingWriter(w io.Writer) (io.Writer, *int64) {
 func main() {
 	cw, count := CountingWriter(os.Stdout)
 	fmt.Fprintf(cw, "hello world!\n")
-	//fmt.Println(cw)
+	fmt.Println(cw)
 	fmt.Println(*count)
 }

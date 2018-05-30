@@ -26,6 +26,12 @@ func (s *IntSet) Add(x int) {
 	s.words[word] |= 1 << bit
 }
 
+func (s *IntSet) AddAll(x ...int) {
+	for _, value := range x {
+		s.Add(value)
+	}
+}
+
 // Remove remove x from the set
 func (s *IntSet) Remove(x int) {
 	word, bit := x/64, uint(x%64)

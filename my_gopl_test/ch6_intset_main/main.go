@@ -47,4 +47,9 @@ func main() {
 	fmt.Println(&x)      // "{}"
 
 	fmt.Println(z) // "{1 9 42 144}"
+
+	x.AddAll(1, 2, 5)
+	fmt.Println(&x) // "{1, 2, 5}"
+	x.AddAll(4, 10)
+	fmt.Println(&x) // "{4, 10}"
 }

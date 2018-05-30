@@ -15,3 +15,18 @@ func TestHas(t *testing.T) {
 	}
 
 }
+
+func TestAddAll(t *testing.T) {
+	var s IntSet
+
+	s.AddAll(1, 2, 5)
+	if s.Len() != 3 || !s.Has(1) || !s.Has(2) || !s.Has(5) {
+		t.Errorf("s.AddAll(1, 2, 3), result s: %s", s.String())
+	}
+
+	s.AddAll(4, 10)
+	if s.Len() != 5 || !s.Has(1) || !s.Has(2) || !s.Has(5) || !s.Has(4) || !s.Has(10) {
+		t.Errorf("s.AddAll(4, 10), result s: %s", s.String())
+	}
+
+}

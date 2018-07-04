@@ -65,5 +65,5 @@ func main() {
 	di := fetchDiagnosisInfo()
 	mux := http.NewServeMux()
 	mux.HandleFunc("/diagnosis", di.diagnosis)
-	log.Fatal(http.ListenAndServe("localhost:8000", mux))
+	log.Fatal(http.ListenAndServe(":8000", mux))
 }

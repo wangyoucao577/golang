@@ -77,10 +77,12 @@ func (d diagnosisInfo) diagnosis(w http.ResponseWriter, req *http.Request) {
 	if item == "ping" {
 		d.RemoteAddr = req.RemoteAddr // dynamic update for each request
 		fmt.Fprintf(w, "%s", d)
-	} else {
-		w.WriteHeader(http.StatusNotFound) //404
-		fmt.Fprintf(w, "no diagnosis command %s", req.URL)
+		return
 	}
+
+	w.WriteHeader(http.StatusNotFound) //404
+	fmt.Fprintf(w, "no diagnosis command %s", req.URL)
+
 }
 
 func main() {

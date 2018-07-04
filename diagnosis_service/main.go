@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -8,13 +9,18 @@ import (
 	"os"
 )
 
+type diagnosisInfo struct {
+	Hostname    string   `json:"Hostname"`
+	IpAddresses []string `json:"IP Addresses"` //readable format, like x.x.x.x or ::1
+}
+
 func fetchDiagnosisInfo() *diagnosisInfo {
 	var di diagnosisInfo
 
 	//hostname
 	hostname, err := os.Hostname()
 	if err != nil {
-		fmt.Printf("get hostname failed, err %s\n", err)
+		fmt.Printf("get hostname failed, err %v\n", err)
 	} else {
 		fmt.Printf("Hostname: %s\n", hostname)
 		di.Hostname = hostname
@@ -23,7 +29,7 @@ func fetchDiagnosisInfo() *diagnosisInfo {
 	//ip addresses
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
-		fmt.Printf("lookup network interface addrs failed, err %s\n", err)
+		fmt.Printf("lookup network interface addrs failed, err %v\n", err)
 	} else {
 		for _, addr := range addrs {
 			fmt.Printf("%s ip address-->%s\n", addr.Network(), addr.String())
@@ -34,13 +40,13 @@ func fetchDiagnosisInfo() *diagnosisInfo {
 	return &di
 }
 
-type diagnosisInfo struct {
-	Hostname    string
-	IpAddresses []string //readable format, like x.x.x.x or ::1
-}
-
 func (d diagnosisInfo) String() string {
-	return d.Hostname
+	jsonstr, err := json.Marshal(d)
+	if err != nil {
+		fmt.Printf("to json failed, err %v\n", err)
+		return err.Error()
+	}
+	return string(jsonstr)
 }
 
 func (d diagnosisInfo) diagnosis(w http.ResponseWriter, req *http.Request) {

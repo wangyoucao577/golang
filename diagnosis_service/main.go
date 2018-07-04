@@ -7,12 +7,18 @@ import (
 	"net"
 	"net/http"
 	"os"
+
+	"github.com/matishsiao/goInfo"
 )
 
 type diagnosisInfo struct {
+	//static info
 	Hostname    string   `json:"Hostname"`
 	IpAddresses []string `json:"IP Addresses"` //readable format, like x.x.x.x or ::1
-	RemoteAddr  string   `json:"Remote Endpoint"`
+	CPUs        int      `json:"CPUs"`
+
+	//dynamic info for per request
+	RemoteAddr string `json:"Remote Endpoint"`
 }
 
 func fetchDiagnosisInfo() *diagnosisInfo {
@@ -37,6 +43,11 @@ func fetchDiagnosisInfo() *diagnosisInfo {
 			di.IpAddresses = append(di.IpAddresses, addr.String())
 		}
 	}
+
+	//from goInfo
+	gi := goInfo.GetInfo()
+	gi.VarDump()
+	di.CPUs = gi.CPUs
 
 	return &di
 }

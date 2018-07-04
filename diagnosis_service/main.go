@@ -12,6 +12,7 @@ import (
 type diagnosisInfo struct {
 	Hostname    string   `json:"Hostname"`
 	IpAddresses []string `json:"IP Addresses"` //readable format, like x.x.x.x or ::1
+	RemoteAddr  string   `json:"Remote Endpoint"`
 }
 
 func fetchDiagnosisInfo() *diagnosisInfo {
@@ -52,6 +53,7 @@ func (d diagnosisInfo) String() string {
 func (d diagnosisInfo) diagnosis(w http.ResponseWriter, req *http.Request) {
 	item := req.URL.Query().Get("diagnosis")
 	if item == "ping" {
+		d.RemoteAddr = req.RemoteAddr
 		fmt.Fprintf(w, "%s", d)
 	} else {
 		w.WriteHeader(http.StatusNotFound) //404

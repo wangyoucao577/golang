@@ -42,14 +42,16 @@ func fetchStaticDiagnosisInfo() *diagnosisInfo {
 			ip, _, err := net.ParseCIDR(addr.String())
 			if err != nil {
 				fmt.Printf("ParseCIDR addrs failed, err %v\n", err)
-			} else {
-				if ip.IsLoopback() {
-					fmt.Printf("ignore Loopback ip address-->%s\n", addr.String())
-				} else {
-					fmt.Printf("%s ip address-->%s\n", addr.Network(), addr.String())
-					di.IpAddresses = append(di.IpAddresses, addr.String())
-				}
+				continue
 			}
+
+			if ip.IsLoopback() {
+				fmt.Printf("ignore Loopback ip address-->%s\n", addr.String())
+				continue
+			}
+
+			fmt.Printf("%s ip address-->%s\n", addr.Network(), addr.String())
+			di.IpAddresses = append(di.IpAddresses, addr.String())
 		}
 	}
 

@@ -21,7 +21,7 @@ type diagnosisInfo struct {
 	RemoteAddr string `json:"Remote Endpoint"`
 }
 
-func fetchDiagnosisInfo() *diagnosisInfo {
+func fetchStaticDiagnosisInfo() *diagnosisInfo {
 	var di diagnosisInfo
 
 	//hostname
@@ -64,7 +64,7 @@ func (d diagnosisInfo) String() string {
 func (d diagnosisInfo) diagnosis(w http.ResponseWriter, req *http.Request) {
 	item := req.URL.Query().Get("diagnosis")
 	if item == "ping" {
-		d.RemoteAddr = req.RemoteAddr
+		d.RemoteAddr = req.RemoteAddr // dynamic update for each request
 		fmt.Fprintf(w, "%s", d)
 	} else {
 		w.WriteHeader(http.StatusNotFound) //404
@@ -75,7 +75,7 @@ func (d diagnosisInfo) diagnosis(w http.ResponseWriter, req *http.Request) {
 func main() {
 
 	//Sample Request: http://localhost:8000/diagnosis?diagnosis=ping
-	di := fetchDiagnosisInfo()
+	di := fetchStaticDiagnosisInfo()
 	mux := http.NewServeMux()
 	mux.HandleFunc("/diagnosis", di.diagnosis)
 	log.Fatal(http.ListenAndServe(":8000", mux))

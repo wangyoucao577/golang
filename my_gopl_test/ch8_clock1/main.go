@@ -13,7 +13,9 @@ func main() {
 	listener, err := net.Listen("tcp", ":8081")
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
+	defer listener.Close()
 
 	for {
 		conn, err := listener.Accept()

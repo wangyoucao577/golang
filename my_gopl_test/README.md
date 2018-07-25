@@ -337,6 +337,10 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - `Type Switch`
         - 通过`switch`以及`Type Assertion`来根据不同类型进行不同处理的方便写法, 本质上有点语法糖, 因为通过`if/else`加上`Type Assertion`完全可以实现, 但略显啰嗦. 用`switch`看起来优雅些.    
         - 书上把`Type Switch`翻译成了类型开关, 虽然是直译, 但看起来够够的, 非常的不 make sense, 还不如保留原文`Type Switch`     
+- `Goroutine`
+    - `goroutine`+`channel` 支持术语为"顺序通信进程"(communicating sequential processes, 简称为CSP)的并发模型. 而更传统的并发模型为"多线程共享内存".     
+    - 当一个程序启动时, `main`函数即在一个单独的`goroutine`中运行, 称为`main goroutine`.    
+    - 通过`go`语句来创建新的`goroutine`, 语法上为普通的函数或方法调用前加上`go`关键字. e.g. `go f()`    
 - 封装    
     - `Go`语言只有一种控制可见性的手段: 大写首字母的标识符会从定义它们的包中被导出, 小写字母的则不会. 这种基于名字的手段使得在`Go`语言中最小的封装单元是`package`.     
 - 错误处理    

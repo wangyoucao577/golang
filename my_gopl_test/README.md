@@ -337,10 +337,22 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - `Type Switch`
         - 通过`switch`以及`Type Assertion`来根据不同类型进行不同处理的方便写法, 本质上有点语法糖, 因为通过`if/else`加上`Type Assertion`完全可以实现, 但略显啰嗦. 用`switch`看起来优雅些.    
         - 书上把`Type Switch`翻译成了类型开关, 虽然是直译, 但看起来够够的, 非常的不 make sense, 还不如保留原文`Type Switch`     
-- `Goroutine`
+- `Goroutine`, `Channel`
     - `goroutine`+`channel` 支持术语为"顺序通信进程"(communicating sequential processes, 简称为CSP)的并发模型. 而更传统的并发模型为"多线程共享内存".     
     - 当一个程序启动时, `main`函数即在一个单独的`goroutine`中运行, 称为`main goroutine`.    
     - 通过`go`语句来创建新的`goroutine`, 语法上为普通的函数或方法调用前加上`go`关键字. e.g. `go f()`    
+    - `channel`是一个通信机制, 它可以让一个`goroutine`通过它给另一个`goroutine`发送值信息. 每个`channel`都以一个特殊的类型, 也就是`channel`可发送的数据类型. 
+        - e.g. `ch := make(chan int)` 即创建一个`channel`可发送`int`型值.    
+        - e.g. `ch := make(chan string 3)` 即创建一个`channel`可发送`string`型值, 并最多缓存3个元素.    
+    - 和`map`或`slice`类似, `channel`变量对应的也是一个底层数据结构的引用. 两个相同类型的`channel`可以使用`==`运算符比较.    
+    - 一个`channel`有发送和接收两个主要操作, 都通信行为. 语法为(`ch`为一个`channel`):    
+        - 发送: `ch <- x`
+        - 接收: `x <- ch` (不写`x`时, 如` <- ch` 则为丢弃接收的内容)
+    - 使用`make`创建一个`channel`, 使用`close()`关闭一个`channel`    
+        - 通常不需要显式关闭
+            - 首先, `close()`一个`channel`意义为不能再对此`channel`发送数据, 所以一般仅在需要明确要向`channel`发送的数据已经全部完成的时候才显式调用`close()`    
+            - 其次, `channel`不再被引用后会像普通变量一样自动被垃圾回收    
+
 - 封装    
     - `Go`语言只有一种控制可见性的手段: 大写首字母的标识符会从定义它们的包中被导出, 小写字母的则不会. 这种基于名字的手段使得在`Go`语言中最小的封装单元是`package`.     
 - 错误处理    

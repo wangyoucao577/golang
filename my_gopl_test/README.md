@@ -348,10 +348,15 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 一个`channel`有发送和接收两个主要操作, 都通信行为. 语法为(`ch`为一个`channel`):    
         - 发送: `ch <- x`
         - 接收: `x <- ch` (不写`x`时, 如` <- ch` 则为丢弃接收的内容)
-    - 使用`make`创建一个`channel`, 使用`close()`关闭一个`channel`    
+    - 使用`make()`创建一个`channel`, 使用`close()`关闭一个`channel`    
         - 通常不需要显式关闭
-            - 首先, `close()`一个`channel`意义为不能再对此`channel`发送数据, 所以一般仅在需要明确要向`channel`发送的数据已经全部完成的时候才显式调用`close()`    
+            - 首先, `close()`一个`channel`意义为不能再对此`channel`发送数据, 所以一般仅在需要告诉接收者`goroutine`, 要向`channel`发送的数据已经全部完成的时候才显式调用`close()`. 在接收`channel`数据的`goroutine`中可通过第二个返回值判断`channel`是否已经被关闭.        
             - 其次, `channel`不再被引用后会像普通变量一样自动被垃圾回收    
+            - 试图重复`close()`一个`channel`或关闭一个`nil`的`channel`将导致`panic`异常
+    - `Channel`默认行为为阻塞
+        - 一个基于无缓存的`Channel`的发送操作将导致阻塞, 直到另一个`gorouting`在相同的`Channel`上执行接收操作. Vice Versa.    
+            - 注: 当通过一个无缓存`Channel`发送数据时, 接收者收到数据发生在唤醒发送者`goroutine`之前("Happen Before").    
+        - 带缓存的`Channel`, 则是在缓存用满后开始阻塞.    
 
 - 封装    
     - `Go`语言只有一种控制可见性的手段: 大写首字母的标识符会从定义它们的包中被导出, 小写字母的则不会. 这种基于名字的手段使得在`Go`语言中最小的封装单元是`package`.     

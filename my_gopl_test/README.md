@@ -341,7 +341,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - `goroutine`+`channel` 支持术语为"顺序通信进程"(communicating sequential processes, 简称为CSP)的并发模型. 而更传统的并发模型为"多线程共享内存".     
     - 当一个程序启动时, `main`函数即在一个单独的`goroutine`中运行, 称为`main goroutine`.    
     - 通过`go`语句来创建新的`goroutine`, 语法上为普通的函数或方法调用前加上`go`关键字. e.g. `go f()`    
-    - `channel`是一个通信机制, 它可以让一个`goroutine`通过它给另一个`goroutine`发送值信息. 每个`channel`都以一个特殊的类型, 也就是`channel`可发送的数据类型. 
+    - `channel`是一个通信机制, 它可以让一个`goroutine`通过它给另一个`goroutine`发送值信息. 每个`channel`都有一个特殊的类型, 也就是`channel`可发送的数据类型. 
         - e.g. `ch := make(chan int)` 即创建一个`channel`可发送`int`型值.    
         - e.g. `ch := make(chan string 3)` 即创建一个`channel`可发送`string`型值, 并最多缓存3个元素.    
     - 和`map`或`slice`类似, `channel`变量对应的也是一个底层数据结构的引用. 两个相同类型的`channel`可以使用`==`运算符比较.    

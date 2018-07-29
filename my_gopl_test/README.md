@@ -345,7 +345,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
         - e.g. `ch := make(chan int)` 即创建一个`channel`可发送`int`型值.    
         - e.g. `ch := make(chan string 3)` 即创建一个`channel`可发送`string`型值, 并最多缓存3个元素.    
     - 和`map`或`slice`类似, `channel`变量对应的也是一个底层数据结构的引用. 两个相同类型的`channel`可以使用`==`运算符比较.    
-    - 一个`channel`有发送和接收两个主要操作, 都通信行为. 语法为(`ch`为一个`channel`):    
+    - 一个`channel`有发送和接收两个主要操作, 都是通信行为. 语法为(`ch`为一个`channel`):    
         - 发送: `ch <- x`
         - 接收: `x <- ch` (不写`x`时, 如` <- ch` 则为丢弃接收的内容)
     - 使用`make()`创建一个`channel`, 使用`close()`关闭一个`channel`    

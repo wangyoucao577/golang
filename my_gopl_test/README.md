@@ -350,14 +350,23 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
         - 接收: `x <- ch` (不写`x`时, 如` <- ch` 则为丢弃接收的内容)
     - 使用`make()`创建一个`channel`, 使用`close()`关闭一个`channel`    
         - 通常不需要显式关闭
-            - 首先, `close()`一个`channel`意义为不能再对此`channel`发送数据, 所以一般仅在需要告诉接收者`goroutine`, 要向`channel`发送的数据已经全部完成的时候才显式调用`close()`. 在接收`channel`数据的`goroutine`中可通过第二个返回值判断`channel`是否已经被关闭.        
+            - 首先, `close()`一个`channel`意义为不能再对此`channel`发送数据, 所以一般仅在需要告诉接收者`goroutine`, 要向`channel`发送的数据已经全部完成的时候才显式调用`close()`. 在接收`channel`数据的`goroutine`中可通过第二个返回值判断`channel`是否已经被关闭. e.g. ` x, ok := <- ch`  
+            - 如上所述, 若要显式调用`close()`, 也仅应在发送的`goroutine`中调用     
             - 其次, `channel`不再被引用后会像普通变量一样自动被垃圾回收    
             - 试图重复`close()`一个`channel`或关闭一个`nil`的`channel`将导致`panic`异常
     - `Channel`默认行为为阻塞
         - 一个基于无缓存的`Channel`的发送操作将导致阻塞, 直到另一个`gorouting`在相同的`Channel`上执行接收操作. Vice Versa.    
             - 注: 当通过一个无缓存`Channel`发送数据时, 接收者收到数据发生在唤醒发送者`goroutine`之前("Happen Before").    
         - 带缓存的`Channel`, 则是在缓存用满后开始阻塞.    
-
+    - 单向`channel`
+        - 典型应用场景: 通常在当`channel`定义为函数参数时, 且其在函数中仅会被用于发送或仅被用于接收(发送`goroutine`和接收`goroutine`调用不同的函数)    
+        - `out chan<- int`: `out`代表一个仅允许发送操作且支持的类型为`int`的`channel`
+        - `in <-chan int`: `in`代表一个仅允许接收操作且支持的类型为`int`的`channel`
+        - 单向`channel`的限制将在编译期检查. 对一个只接收的`channel`调用`close()`将会是编译错误.    
+        - 任何双向`channel`向单向`channel`变量的赋值操作将会是隐式转换, 而反向并不能转换, 即不能将单向`channel`转换为双向.    
+    - 带缓存的`channel`内部持有一个元素队列, 向`channel`的发送操作就是向内部缓存队列的尾部插入元素, 接收操作就是从缓存队列的头部取出元素.
+    - 多个`goroutine`并发的向同一个`channel`发送数据, 或从同一个`channel`接收数据都是常见的用法.   
+    - `goroutine`泄露: `goroutine`卡住而永远不会返回(如从一个不会再有数据的空的不带缓存的`channel`中接收), 称为`goroutine`泄露, 类似于线程卡死. 泄露的`goroutine`并不会被自动回收, 因此应确保每一个不再需要的`goroutine`能正常退出.    
 - 封装    
     - `Go`语言只有一种控制可见性的手段: 大写首字母的标识符会从定义它们的包中被导出, 小写字母的则不会. 这种基于名字的手段使得在`Go`语言中最小的封装单元是`package`.     
 - 错误处理    

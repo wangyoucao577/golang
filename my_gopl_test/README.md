@@ -368,6 +368,11 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 多个`goroutine`并发的向同一个`channel`发送数据, 或从同一个`channel`接收数据都是常见的用法.   
     - `goroutine`泄露: `goroutine`卡住而永远不会返回(如从一个不会再有数据的空的不带缓存的`channel`中接收), 称为`goroutine`泄露, 类似于线程卡死. 泄露的`goroutine`并不会被自动回收, 因此应确保每一个不再需要的`goroutine`能正常退出.    
     - 当在循环中使用`goroutine`进行并发处理时, 常用`sync.WaitGroup`来等待从而保证所有的`goroutine`都已退出, 防止`goroutine`泄露.    
+    - `Golang`中可以基于`select`实现多路复用:    
+        - `select`语法类似于`switch`, 有多个`case`和一个可选的`default`    
+        - `select`会等待`case`中有能够执行的`case`时去执行. 当条件满足时, `select`才会去通信并执行`case`之后的语句. 如果多个`case`同时就绪, `select`会随机的选择一个通信并执行, 这样来保证每一个`channel`都有平等的被`select`的机会.    
+        - `select`可以有`default`语句, 此时行为相当于变成了非阻塞的`select`, 所有其他`case`条件都不满足时, 会进入`default`分支执行.   
+        - `select`本身仅一次行为, 常配合`for`使用.    
 - 封装    
     - `Go`语言只有一种控制可见性的手段: 大写首字母的标识符会从定义它们的包中被导出, 小写字母的则不会. 这种基于名字的手段使得在`Go`语言中最小的封装单元是`package`.     
 - 错误处理    

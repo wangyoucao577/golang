@@ -337,7 +337,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - `Type Switch`
         - 通过`switch`以及`Type Assertion`来根据不同类型进行不同处理的方便写法, 本质上有点语法糖, 因为通过`if/else`加上`Type Assertion`完全可以实现, 但略显啰嗦. 用`switch`看起来优雅些.    
         - 书上把`Type Switch`翻译成了类型开关, 虽然是直译, 但看起来够够的, 非常的不 make sense, 还不如保留原文`Type Switch`     
-- `Goroutine`, `Channel`
+- Concurrency: `Goroutine`, `Channel`, `sync`
     - `goroutine`+`channel` 支持术语为"顺序通信进程"(communicating sequential processes, 简称为CSP)的并发模型. 而更传统的并发模型为"多线程共享内存".     
     - 当一个程序启动时, `main`函数即在一个单独的`goroutine`中运行, 称为`main goroutine`.    
     - 通过`go`语句来创建新的`goroutine`, 语法上为普通的函数或方法调用前加上`go`关键字. e.g. `go f()`    
@@ -375,6 +375,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
         - `select`本身仅一次行为, 常配合`for`使用.    
     - 退出`goroutine`的一个常用用法: 利用`close()`一个特定`channel`来广播退出消息, 在`goroutine`中查询这个`channel`是否已经被关闭从而决定继续执行还是退出    
     - `Go`中并发的口头禅："不要使用共享数据来通信, 使用通信来共享数据"
+    - `sync`包中几种常用的互斥锁/方法: `sync.Mutex`, `sync.RWMutex`, `sync.Once`
 - 封装    
     - `Go`语言只有一种控制可见性的手段: 大写首字母的标识符会从定义它们的包中被导出, 小写字母的则不会. 这种基于名字的手段使得在`Go`语言中最小的封装单元是`package`.     
 - 错误处理    

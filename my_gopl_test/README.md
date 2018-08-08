@@ -16,7 +16,12 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
     - `import`但未被引用的包, 会导致编译错误
 - `Go`的代码通过`package`组织(类似于其他语言的modules 或 libraries)
     - 一个`package`由位于单个目录下的一个或多个.go生成
-    - 通常目录的名字即为`package`的名字
+    - 通常目录最后一段的名字即为`package`的名字.     
+        - 因此即使两个包的导入路径不同, 它们依然可能有一个相同的名字. 
+        - 有三种例外情况: 
+            - 包对应一个可执行程序, 也就是`main`包
+            - 包目录中有`test`相关内容(i.e. 包目录中有一些以`_test.go`为后缀的源文件, 且它们的包名也以`_test`结尾)
+            - 导入路径后可能追加了版本信息
     - 而`package xxx`中的`xxx`为命名空间(引用名)
     - 按照惯例是导入路径的最后一段与命名空间一致
 - 每个源文件都应

@@ -376,6 +376,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 退出`goroutine`的一个常用用法: 利用`close()`一个特定`channel`来广播退出消息, 在`goroutine`中查询这个`channel`是否已经被关闭从而决定继续执行还是退出    
     - `Go`中并发的口头禅："不要使用共享数据来通信, 使用通信来共享数据"
     - `sync`包中几种常用的互斥锁/方法: `sync.Mutex`, `sync.RWMutex`, `sync.Once`
+    - `Go`的`runtime`和工具链为我们装备了一个复杂但好用的动态分析工具, 竞争检查器(the race detector), 帮助我们记录和报告所有已经发生的同步事件/数据竞争. 完整的同步事件集合参考[The Go Memory Model](https://golang.org/ref/mem).
 - 封装    
     - `Go`语言只有一种控制可见性的手段: 大写首字母的标识符会从定义它们的包中被导出, 小写字母的则不会. 这种基于名字的手段使得在`Go`语言中最小的封装单元是`package`.     
 - 错误处理    

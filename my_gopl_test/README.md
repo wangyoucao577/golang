@@ -18,6 +18,7 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
     - 一个`package`由位于单个目录下的一个或多个.go生成
     - 通常目录最后一段的名字即为`package`的名字.     
         - 因此即使两个包的导入路径不同, 它们依然可能有一个相同的名字. 
+            - 导入的包可以重命名, 从而解决这个问题. 导入包的重命名只影响当前的源文件.    
         - 有三种例外情况: 
             - 包对应一个可执行程序, 也就是`main`包
             - 包目录中有`test`相关内容(i.e. 包目录中有一些以`_test.go`为后缀的源文件, 且它们的包名也以`_test`结尾)

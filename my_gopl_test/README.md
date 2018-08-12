@@ -25,6 +25,9 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
             - 导入路径后可能追加了版本信息
     - 而`package xxx`中的`xxx`为命名空间(引用名)
     - 按照惯例是导入路径的最后一段与命名空间一致
+    - 包也支持匿名导入, 即以`_`重命名导入的包.    
+        - 通常用于实现一个编译时的机制, 即通过在`main()`主程序入口处选择性地导入附加的包.    
+        - 实现原理为, 编译时检测到`import`的包时, 会调用包的`init()`函数进行初始化. 而此时即可在`init()`中插入一些注册代码以实现此机制.    
 - 每个源文件都应
     - 首先以 `package xxx` 开始，以定义此文件属于哪个package.
     - 然后`import xxx` 导入所需要链接的`package`(`import`必须在`package`之后)

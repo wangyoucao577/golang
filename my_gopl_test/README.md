@@ -35,7 +35,7 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
 - `package main`，以及 `func main`
     - `package main`定义了独立的可执行程序
     - `func main`则定义了程序的入口函数
-- 注释： `//`
+- 注释： `//`, `/* */`
 - `Go`中 函数和包级别(package level entities)的变量/函数可以任意顺序声明, 并不影响其调用
 - 变量的几种声明/初始化形式(声明即初始化)
     - `var s1, s2 string` (声明2个`string`变量, 隐式初始化为`""`字符串. 若类型为`int`, 则隐式初始化为`0`)
@@ -127,6 +127,10 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
 - 命名风格
     - 倾向于不要太长的名字
     - 倾向于驼峰命名法(优先大小写分隔，而不是下划线分隔)
+    - 包的命名建议
+        - 当创建一个包, 一般要用短小的包名, 但也不能太短导致难以理解; 
+        - 包名一般采用单数的形式(标准库的`bytes`,`errors`,`strings`等复数形式是为了避免和预定义的类型冲突.)
+        - 要避免包名有其他的含义;
 - 四种声明
     - `var`: 变量声明
     - `const`: 常量声明

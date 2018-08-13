@@ -16,6 +16,7 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
     - `import`但未被引用的包, 会导致编译错误
 - `Go`的代码通过`package`组织(类似于其他语言的modules 或 libraries)
     - 一个`package`由位于单个目录下的一个或多个.go生成
+        - 每个目录只包含一个`package`
     - 通常目录最后一段的名字即为`package`的名字.     
         - 因此即使两个包的导入路径不同, 它们依然可能有一个相同的名字. 
             - 导入的包可以重命名, 从而解决这个问题. 导入包的重命名只影响当前的源文件.    
@@ -105,9 +106,17 @@ src/
 
 ### Go的常用工具命令    
 Go提供了一系列的工具命令，都可以通过一个单独的go命令调用    
-- go run：编译一个或多个 .go, 链接库文件, 并运行最终生成的可执行文件 (不会保留可执行文件)   
-- go build: 编译一个或多个 .go, 链接库文件, 生成可执行程序或package   
-- go install: 编译一个或多个 .go, 链接库文件, 生成可执行程序或package, 并将其对应的安装到 bin/pkg 目录下供执行或其他程序链接   
+- go run：编译一个或多个 `.go`, 链接库文件, 并运行最终生成的可执行文件 (不会保留可执行文件)   
+- go build: 编译由一个或多个 `.go` 组成的`package`  
+    - 对于`packge main`, 生成可执行程序的`binary`
+    - 对于其他`package`, 忽略输出结果, 相当于编译检查.
+- go install: 编译一个或多个 `.go` 组成的`package`, 生成可执行程序或`package`, 并将其对应的安装到 `bin/pkg` 目录下供执行或其他程序链接   
+    - 基本同`go build`, 但会保存生成的结果
+    - 因为编译对应不同的操作系统平台和`CPU`架构, `go install`命令会将编译结果安装到`GOOS`和`GOARCH`对应的目录.    
+    - 如果一个文件名包含了一个操作系统或处理器类型名字, 例如`net_linux.go`或`asm_amd64.s`, `Go`语言的构建工具将只在对应的平台编译这些文件. 
+    - 还有一个特别的构建注释(加在文件开头, 包声明或包注释前面)可以提供更多的构建过程控制, 如:
+        - `// +build linux darwin`: 仅在`linux`或`MacOSX`上才编译这个文件
+        - `// +build ignore`: 不编译这个文件
 - go get: 下载远程包源码并`install`
     - 下载远程包源码时会`Clone`其`repo`, 而不是简单的拷贝源文件
     - 直接支持`Github`, `Bitbucket`, `Launchpad`, 其他网站则可能需要配置版本控制系统的具体路径和协议). 

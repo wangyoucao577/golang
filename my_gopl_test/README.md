@@ -29,6 +29,10 @@ Sample and exercise codes from learning  [The Go Programming Language](http://go
     - 包也支持匿名导入, 即以`_`重命名导入的包.    
         - 通常用于实现一个编译时的机制, 即通过在`main()`主程序入口处选择性地导入附加的包.    
         - 实现原理为, 编译时检测到`import`的包时, 会调用包的`init()`函数进行初始化. 而此时即可在`init()`中插入一些注册代码以实现此机制.    
+    - `Go`语言的构建工具对包含`internal`名字的路径段的包的导入路径做了特殊处理:
+        - 这种包叫做`internal`包
+        - 一个`internal`包只能被和`internal`目录有同一个父目录的包所导入. 
+            - 例如, `net/http/internal/chunked`这个`internal`包只能被`net/http/httputil`或`net/http`导入, 但不能被`net/url`包打入.    
 - 每个源文件都应
     - 首先以 `package xxx` 开始，以定义此文件属于哪个package.
     - 然后`import xxx` 导入所需要链接的`package`(`import`必须在`package`之后)
@@ -117,6 +121,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 还有一个特别的构建注释(加在文件开头, 包声明或包注释前面)可以提供更多的构建过程控制, 如:
         - `// +build linux darwin`: 仅在`linux`或`MacOSX`上才编译这个文件
         - `// +build ignore`: 不编译这个文件
+- go test: 运行`Go`语言中的测试代码
 - go get: 下载远程包源码并`install`
     - 下载远程包源码时会`Clone`其`repo`, 而不是简单的拷贝源文件
     - 直接支持`Github`, `Bitbucket`, `Launchpad`, 其他网站则可能需要配置版本控制系统的具体路径和协议). 
@@ -124,9 +129,11 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 加上`-u`参数则`go get`会确保所有的包和依赖的包的版本都是最新的, 然后重新编译和安装它们.
 - gofmt: 格式化源代码，**强制无参数的命令来统一go的代码格式**, 默认行为为将diff的内容写到stdout，而要直接格式化源文件本身的话，加上 `-w` 选项   
     - `gofmt -l -w .`   
-- goimports: 根据代码需要自动地添加或删除import   
-- go doc: 在cmd中看go的文档   
+- goimports: 根据代码需要自动地添加或删除`import`   
+- go doc: 打印包的声明和每个成员的文档注释   
+- godoc(另一个命令): 提供可以相互交叉引用的`HTML`页面, 但是包含和`go doc`命令相同以及更多的信息. 且支持通过`-analysis=type`和`-analysis=pointer`参数打开文档和代码中关于静态分析的结果.    
 - go env: 查看`Go`环境变量的值
+- go list: 查询可用包的信息
 
 
 ### 细节与杂项

@@ -125,6 +125,8 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - `-v`: verbose output
     - `-run="Regular Expression"`: 仅运行函数名和此正则表达式匹配的测试函数
     - `-coverprofile=c.out`, `-covermode=count`, `-cover`: 同时生成测试覆盖率(语句覆盖率)的统计
+    - `-bench="Regular Expression"`: 运行`Benchmark`测试函数
+    - `-benchmem`: 在`Benchmark`的结果中包含内存的分配数据统计
 - go get: 下载远程包源码并`install`
     - 下载远程包源码时会`Clone`其`repo`, 而不是简单的拷贝源文件
     - 直接支持`Github`, `Bitbucket`, `Launchpad`, 其他网站则可能需要配置版本控制系统的具体路径和协议). 
@@ -469,7 +471,8 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 在包目录内, 所有以`_test.go`为后缀名的源文件并不是`go build`构建包的一部分, 它们是`go test`测试的一部分.    
     - 在`*_test.go`文件中, 有三种类型的函数:
         - 测试函数: 即在`*_test.go`中以`Test`为函数名前缀的函数, 用于测试程序的一些逻辑行为是否正确. `go test`命令会调用这些测试函数并报告测试结果是`PASS`或`FAIL`. e.g. `func TestSin(t *testing.T) { /* ... */ }`    
-        - 基准测试函数: 即在`*_test.go`中以`Benchmark`为函数名前缀的函数, 用于衡量一些函数的性能. `go test`命令会多次运行基准函数以计算一个平均的执行时间. 
+        - 基准测试函数: 即在`*_test.go`中以`Benchmark`为函数名前缀的函数, 用于衡量一些函数的性能. `go test`命令会多次运行基准函数以计算一个平均的执行时间. e.g. `func BenchmarkSin(b *testing.B) { /* ... */ }`
+            - 默认情况下不运行, 需要以`go test -bench=.`来启动运行.    
         - 示例函数: 即在`*_test.go`中以`Example`为函数名前缀的函数, 提供一个由编译器保证正确性的示例文档.    
     - `go test`命令会遍历所有的`*_test.go`文件中符合上述命名规则的函数, 然后生成一个临时的`main`包用于调用相应的测试函数, 然后构建并运行、报告测试结果, 最后清理测试中生成的临时文件.    
     - 测试函数的几种思路：

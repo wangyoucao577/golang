@@ -124,6 +124,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
 - go test: 运行`Go`语言中的测试代码
     - `-v`: verbose output
     - `-run="Regular Expression"`: 仅运行函数名和此正则表达式匹配的测试函数
+    - `-coverprofile=c.out`, `-covermode=count`, `-cover`: 同时生成测试覆盖率(语句覆盖率)的统计
 - go get: 下载远程包源码并`install`
     - 下载远程包源码时会`Clone`其`repo`, 而不是简单的拷贝源文件
     - 直接支持`Github`, `Bitbucket`, `Launchpad`, 其他网站则可能需要配置版本控制系统的具体路径和协议). 
@@ -141,7 +142,8 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
         - `go list -f={{.TestGoFiles}} fmt`: `TestGoFiles`表示内部测试代码
             - 通常`export_test.go`用于导出一个内部的实现给测试扩展包
         - `go list -f={{.XTestGoFiles}} fmt`: `XTestGoFiles`表示测试扩展包代码, i.e `fmt_test`包
-
+- go tool: 运行`Go`工具链的底层可执行程序, 如`go tool cover`. 
+    - 这些底层可执行程序放在`$GOROOT/pkg/tool/${GOOS}_${GOARCH}`目录. 因为有`go build`, 我们很少直接调用这些底层工具. 
 
 ### 细节与杂项
 - Go中的区间索引：
@@ -481,6 +483,8 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
         - 测试扩展包名以`_test`作为后缀, 告诉`go test`工具它应该建立一个额外的包来运行测试. e.g. 为`net/url`建立一个`net/url_test`的测试扩展包.
         - 测试扩展包仅会被`go test`运行测试时使用, 不能被其他任何包导入. 
     - 避免脆弱测试代码的方法是只检测你真正关心的属性, 保持测试代码的简洁和内部结构的稳定.   
+    - 测试覆盖率的重点为测试过程中的语句覆盖率, 即测试中至少被运行一次的代码占总代码的比例. 可通过`go test`+`go tool cover`来衡量.   
+    - 测试从本质上来说是一个比较务实的工作, 编写测试代码和编写应用代码的成本对比是需要考虑的. 实践中通常不需要也不应该追求100%的测试覆盖率. 
 
 ## Reference Links 
 - http://gopl.io

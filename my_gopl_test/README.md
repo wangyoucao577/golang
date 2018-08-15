@@ -126,7 +126,10 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - `-run="Regular Expression"`: 仅运行函数名和此正则表达式匹配的测试函数
     - `-coverprofile=c.out`, `-covermode=count`, `-cover`: 同时生成测试覆盖率(语句覆盖率)的统计
     - `-bench="Regular Expression"`: 运行`Benchmark`测试函数
-    - `-benchmem`: 在`Benchmark`的结果中包含内存的分配数据统计
+        - `-benchmem`: 在`Benchmark`的结果中包含内存的分配数据统计
+    - `-cpuprofile=cpu.out`: CPU Profile
+    - `-blockprofile=block.out`: Block Profile
+    - `-memprofile=mem.out`: Memory Profile
 - go get: 下载远程包源码并`install`
     - 下载远程包源码时会`Clone`其`repo`, 而不是简单的拷贝源文件
     - 直接支持`Github`, `Bitbucket`, `Launchpad`, 其他网站则可能需要配置版本控制系统的具体路径和协议). 
@@ -144,7 +147,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
         - `go list -f={{.TestGoFiles}} fmt`: `TestGoFiles`表示内部测试代码
             - 通常`export_test.go`用于导出一个内部的实现给测试扩展包
         - `go list -f={{.XTestGoFiles}} fmt`: `XTestGoFiles`表示测试扩展包代码, i.e `fmt_test`包
-- go tool: 运行`Go`工具链的底层可执行程序, 如`go tool cover`. 
+- go tool: 运行`Go`工具链的底层可执行程序, 如`go tool cover`, `go tool pprof`. 
     - 这些底层可执行程序放在`$GOROOT/pkg/tool/${GOOS}_${GOARCH}`目录. 因为有`go build`, 我们很少直接调用这些底层工具. 
 
 ### 细节与杂项
@@ -488,8 +491,16 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 避免脆弱测试代码的方法是只检测你真正关心的属性, 保持测试代码的简洁和内部结构的稳定.   
     - 测试覆盖率的重点为测试过程中的语句覆盖率, 即测试中至少被运行一次的代码占总代码的比例. 可通过`go test`+`go tool cover`来衡量.   
     - 测试从本质上来说是一个比较务实的工作, 编写测试代码和编写应用代码的成本对比是需要考虑的. 实践中通常不需要也不应该追求100%的测试覆盖率. 
+    - Profiling 
+        - `Go`提供了三类`profile`方法
+            - `go test -cpuprofile=cpu.out`
+            - `go test -blockprofile=block.out`: 分析`goroutine`中的阻塞操作, 如系统调用、管道发送和接收、获取锁等.    
+            - `go test -memprofile=mem.out`
+        - 以及可视化工具`go tool pprof`(可以配合[graphviz](https://www.graphviz.org/)使用)
+        - 进阶可参考[Profiling Go Programs](https://blog.golang.org/profiling-go-programs)
 
 ## Reference Links 
 - http://gopl.io
 - http://github.com/golang-china/gopl-zh
 - http://bitbucket.org/golang-china/gopl-zh
+- [Profiling Go Programs](https://blog.golang.org/profiling-go-programs)

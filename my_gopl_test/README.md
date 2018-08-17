@@ -507,6 +507,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
     - 几个常用函数, 对理解原生内存布局/优化底层内存使用很有帮助: `unsafe.Sizeof`, `unsafe.Alignof`, `unsafe.Offsetof`
         - 和`C/C++`中的类似函数语义一致
     - `Go`语言的规范并没有要求一个字段的声明顺序和内存中的顺序是一致的, 所以理论上一个编译器可以随意地重新排列每个字段的内存位置. (目前还没这么做, 参考[Golang Issue 10014](https://github.com/golang/go/issues/10014))
+    - `unsafe.Pointer`: 可以与任意指针类型互相转换的类型, 类似于`C`中的`void*`. 使用时要按照`void*`来考虑, 防止各种导致`crash`的风险.    
 
 
 ## Reference Links 

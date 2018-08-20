@@ -14,6 +14,7 @@ import "C"
 
 import (
 	"io"
+	"sync"
 	"unsafe"
 )
 
@@ -21,6 +22,8 @@ type writer struct {
 	w      io.Writer
 	stream *C.bz_stream // 通过`C.xxx`调用`C`语言的内容
 	outbuf [64 * 1024]byte
+
+	m sync.Mutex
 }
 
 // NewWriter returns a writer for bzip2-compressed streams.
@@ -34,6 +37,9 @@ func NewWriter(out io.Writer) io.WriteCloser {
 }
 
 func (w *writer) Write(data []byte) (int, error) {
+	w.m.Lock()
+	defer w.m.Unlock()
+
 	if w.stream == nil {
 		panic("closed")
 	}
@@ -56,6 +62,9 @@ func (w *writer) Write(data []byte) (int, error) {
 // Close flushes the compressed data and closes the stream.
 // It does not close the underlying io.Writer.
 func (w *writer) Close() error {
+	w.m.Lock()
+	defer w.m.Unlock()
+
 	if w.stream == nil {
 		panic("closed")
 	}

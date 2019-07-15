@@ -10,6 +10,11 @@
     - 极简的`test`框架    
 - 个人不太喜欢的特性:    
     - 固定的`workspace`结构: 一台机器上同时还不能有2个`workspace`了? 
+        - 补充说明, 从`GO 1.11`开始已经支持了[Go Modules](https://github.com/golang/go/wiki/Modules)以用于管理依赖. 于是虽然`workspace`的固定结构依然存在, 但至少不再需要强制所有的代码固定在`workspace`目录结构中, 方便了依赖管理的同时, 也增加了易用性.    
+        - **Go Modules** 的一些参考资料:    
+            - [Go Modules](https://github.com/golang/go/wiki/Modules)
+            - [Using Go Modules](https://blog.golang.org/using-go-modules)
+            - [How do I find the Go module source cache?](https://stackoverflow.com/questions/52082783/how-do-i-find-the-go-module-source-cache)
 
 ### my_gopl_test  
 Sample/exercise codes and also my learning notes from learning GOPL《The Go Programming Language》. 

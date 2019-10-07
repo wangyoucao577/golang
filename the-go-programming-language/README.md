@@ -1,5 +1,5 @@
-# [Go] my_gopl_test  
-Sample and exercise codes from learning  [The Go Programming Language](http://gopl.io). 
+# The Go Programming Language  
+我的[The Go Programming Language](http://gopl.io)读书笔记及实验代码.  
 
 ## 实验平台
 - Linux: `Ubuntu 16.04.4 LTS`

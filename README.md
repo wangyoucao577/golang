@@ -1,5 +1,5 @@
-# Golang Practice
-My `Go` learning notes and practices.   
+# Golang
+My learning notes and practices for `Go` language.   
   
 `Golang`不愧是现代的`C`语言, 系统的学习下来, 真是足够简洁, 而又灵活且强大, 为服务器应用而生. 迫不及待想用它开发点什么了!!    
 - 罗列几项我认为的关键特性如下:     

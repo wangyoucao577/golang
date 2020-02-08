@@ -22,6 +22,11 @@ My learning notes and practices for `Go` language.
 - Reading book[The Go Programming Language](https://www.gopl.io/). 
 - See details in: [(Chinese)我的Golang学习笔记及GOPL示例实验代码](./the-go-programming-language/)
 
+## Effective Go
+
+- Reading [Effective Go](https://golang.org/doc/effective_go.html)
+- See details in: [(Chinese)我的"Effective Go"学习笔记](./effective-go/)
+
 ## Misc. Topics
 
 - [Go Project Layout](https://github.com/wangyoucao577/go-project-layout)
@@ -32,4 +37,6 @@ My learning notes and practices for `Go` language.
 - [SettingGOPATH](https://github.com/golang/go/wiki/SettingGOPATH)
 - [The Go Programming Language](http://gopl.io)
 - [Effective Go](https://golang.org/doc/effective_go.html)
+- [go/wiki](https://github.com/golang/go/wiki)
+- [CommonMistakes](https://github.com/golang/go/wiki/CommonMistakes)
 

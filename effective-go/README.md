@@ -88,3 +88,12 @@ for _, val := range values {
 ```
 
 更深入的解释及解决方案见 [CommonMistakes](https://github.com/golang/go/wiki/CommonMistakes).     
+
+## A web server
+
+```bash
+$ cd a-web-server
+$ go build
+$ ./a-web-server
+```
+Then open 'http://localhost:1718' in your browser.     

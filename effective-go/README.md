@@ -58,3 +58,33 @@ type main.readerNoFieldName satisfied io.Reader
 type main.readerWithFieldName didn't satisfy io.Reader
 ```
 
+## Common mistake: use reference(address)/goroutine on for loop iterator
+在 [Effective Go](https://golang.org/doc/effective_go.html) 的 [Concurrency/Channels](https://golang.org/doc/effective_go.html#channels) 中提到了这个错误. 在 [CommonMistakes](https://github.com/golang/go/wiki/CommonMistakes) 更加透彻地解释了这个错误的表现及原因.    
+
+如下的简单示例,    
+```go
+func main() {
+	var out []*int
+	for i := 0; i < 3; i++ {
+		out = append(out, &i)
+	}
+	fmt.Println("Values:", *out[0], *out[1], *out[2])
+	fmt.Println("Addresses:", out[0], out[1], out[2])
+}
+```
+输出结果将会是:    
+```bash
+Values: 3 3 3
+Addresses: 0x40e020 0x40e020 0x40e020
+```
+因为`Go`的`for loop`中临时变量, 是一个变量重复赋值, 而并不是每次循环都新创建一个临时变量. 这样设计的效率更高, 与其他许多语言也是一致的. 所以不能直接取其地址使用, 也不能直接将它用于`goroutine`的`closure`中.     
+即如下示例也是典型的错误用法, 尤其需要注意.          
+```go
+for _, val := range values {
+	go func() {
+		fmt.Println(val)    // wrong usage!!!
+	}()
+}
+```
+
+更深入的解释及解决方案见 [CommonMistakes](https://github.com/golang/go/wiki/CommonMistakes).     

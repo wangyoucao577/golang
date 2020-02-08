@@ -52,8 +52,7 @@ func (rw *ReadWriter) Read(p []byte) (n int, err error) {
 - my test code 
 ```bash
 $ cd embedding 
-$ go build 
-$ ./embedding
+$ go run main.go
 type main.readerNoFieldName satisfied io.Reader
 type main.readerWithFieldName didn't satisfy io.Reader
 ```
@@ -93,7 +92,6 @@ for _, val := range values {
 
 ```bash
 $ cd a-web-server
-$ go build
-$ ./a-web-server
+$ go run main.go
 ```
 Then open 'http://localhost:1718' in your browser.     

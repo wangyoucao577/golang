@@ -39,4 +39,6 @@ My learning notes and practices for `Go` language.
 - [Effective Go](https://golang.org/doc/effective_go.html)
 - [go/wiki](https://github.com/golang/go/wiki)
 - [CommonMistakes](https://github.com/golang/go/wiki/CommonMistakes)
+- [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
+- [TableDrivenTests](https://github.com/golang/go/wiki/TableDrivenTests)
 

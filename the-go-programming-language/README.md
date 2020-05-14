@@ -376,7 +376,7 @@ Go提供了一系列的工具命令，都可以通过一个单独的go命令调�
         - 两部分皆为`nil`时 `interface value == nil`, 称为空接口值.    
         - 调用一个空接口值上的任何方法, 都会造成panic.    
         - 比较接口值或者包含了接口值的聚合类型时, 必须要意识到潜在的panic风险.    
-        - 注意: 一个不包含任何值的`nil`接口值和一个刚好包含`nil`指针的接口值是不同的.    
+        - 注意: 一个不包含任何值的`nil`接口值和一个刚好包含`nil`指针的接口值是不同的(需要判断是否为空时, 前者 `== nil`, 后者`!= nil`, 见讨论[Check for nil and nil interface in Go](https://stackoverflow.com/questions/13476349/check-for-nil-and-nil-interface-in-go)).    
     - 类型断言(`Type Assersion`)    
         - 可用于帮助判断接口值在运行时的实际类型    
         - 语法为`x.(T)`, 其中`x`为接口值, `T`为一个具体类型或接口类型. 返回值可以是一个或者两个
